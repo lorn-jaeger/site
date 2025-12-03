@@ -303,38 +303,9 @@
       </aside>
 
       <main class="main-content" id="blog">
-        <article class="post-card">
-          <h3>12-17-24 — Glitch Field Notes</h3>
-          <p class="post-meta">Missoula, MT — experiments with stretched frames.</p>
-          <img src="parthenon-glitch.webp" alt="Parthenon glitch sample">
-          <p>Collected a handful of smears from architectural shots. The longer the smear, the more it feels like memory instead of capture.</p>
-          <p>Tools: PIL, nearest-neighbor stretch, a bit of channel offset and stripes.</p>
-        </article>
-
-        <article class="post-card">
-          <h3>12-12-24 — Narrow Pages</h3>
-          <p class="post-meta">On choosing a min viewport width for calmer reading.</p>
-          <p>Keeping the column narrow keeps me honest—nothing to hide behind, just text and a few reference images when needed.</p>
-        </article>
-
-        <article class="post-card">
-          <h3>12-05-24 — Trailhead Planning</h3>
-          <p class="post-meta">Sketching routes for winter hikes.</p>
-          <img src="parthenon-glitch.webp" alt="Parthenon glitch sample">
-          <p>Map layers, weather overlays, and a few hand-drawn markers to keep track of daylight.</p>
-        </article>
-
-        <article class="post-card">
-          <h3>11-28-24 — Quiet Deploys</h3>
-          <p class="post-meta">Notes on slow, deliberate releases.</p>
-          <p>Deploy early, freeze often, and keep the blast radius small. Every release should feel like a whisper, not a shout.</p>
-        </article>
-
-        <article class="post-card">
-          <h3>11-20-24 — Walkable Code</h3>
-          <p class="post-meta">Code you can stroll through without losing your place.</p>
-          <p>Short files, explicit seams, and a little whitespace go a long way. Screenshots of the Parthenon remind me to keep the lines straight.</p>
-        </article>
+        <div id="posts-container">
+          <p>Loading posts...</p>
+        </div>
       </main>
     </div>
 
@@ -399,6 +370,17 @@
           toggleBtn.textContent = hidden ? "▲" : "▼";
         });
       }
+
+      fetch("generated/posts.html")
+        .then((resp) => resp.ok ? resp.text() : Promise.reject(resp.status))
+        .then((html) => {
+          const target = document.getElementById("posts-container");
+          if (target) target.innerHTML = html;
+        })
+        .catch(() => {
+          const target = document.getElementById("posts-container");
+          if (target) target.innerHTML = "<p>No posts built yet. Run <code>python build.py</code> to generate.</p>";
+        });
     });
   </script>
   </body>
