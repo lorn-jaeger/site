@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lorn Jaeger's Webpage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: monospace;
+      background: #fdfdfd;
+      overflow-x: hidden;
+    }
+
+    header {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      max-width: 100vw;
+      color: #000;
+      overflow: hidden;
+      background: #fdfdfd;
+      position: relative;
+    }
+
+    .hero-img {
+      display: block;
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: clamp(1rem, 4vw, 3rem);
+      padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+      pointer-events: none;
+    }
+
+    .hero-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0.18) 85%, rgba(255, 255, 255, 0.28) 100%);
+      pointer-events: none;
+    }
+
+    .overlay-box {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+      font-weight: 400;
+      color: #000;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+      pointer-events: auto;
+    }
+
+    .overlay-left {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .overlay-right {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    nav {
+      margin: 0;
+      padding: 0;
+      border: none;
+      text-align: left;
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+    }
+
+    .title-name {
+      text-decoration: underline;
+      font-weight: 700;
+    }
+
+  </style>
+</head>
+  <body>
+    <header>
+      <img src="parthenon-glitch.webp" alt="Glitched Parthenon" class="hero-img">
+      <div class="hero-overlay">
+        <div class="overlay-box overlay-left">
+          <nav aria-label="Primary">
+            <a href="#me">me</a> //
+            <a href="#code">code</a> //
+            <a href="#contact">contact</a> //
+            <a href="#links">links</a>
+          </nav>
+        </div>
+        <div class="overlay-box overlay-right">
+          <span class="title-name">Lorn's Webpage</span>
+          <span id="clock">--:--:-- -- in Missoula MT</span>
+          <span id="requests">0 requests today</span>
+          <span id="server-ip">Server: --</span>
+        </div>
+      </div>
+    </header>
+
+  <script>
+    const STORAGE_KEY = "lorn_request_counter";
+
+    function getMissoulaDateParts() {
+      const options = { timeZone: "America/Denver", year: "numeric", month: "2-digit", day: "2-digit" };
+      const dateString = new Intl.DateTimeFormat("en-US", options).format(new Date());
+      const [m, d, y] = dateString.split("/");
+      return { y, m, d };
+    }
+
+    function todayKey() {
+      const { y, m, d } = getMissoulaDateParts();
+      return `${y}-${m}-${d}`;
+    }
+
+    function updateClock() {
+      const options = {
+        timeZone: "America/Denver",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      };
+      const t = new Intl.DateTimeFormat("en-US", options).format(new Date());
+      document.getElementById("clock").textContent = t + " in Missoula MT";
+    }
+
+    function updateRequests() {
+      const key = todayKey();
+      let data;
+
+      try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)); }
+      catch { data = null; }
+
+      if (!data || data.date !== key) data = { date: key, count: 0 };
+      data.count++;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+      const label = data.count === 1 ? "request" : "requests";
+      document.getElementById("requests").textContent = `${data.count} ${label} today`;
+    }
+
+    function updateServerIp() {
+      const host = window.location.hostname || "localhost";
+      document.getElementById("server-ip").textContent = `${host}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateClock();
+      setInterval(updateClock, 1000);
+      updateRequests();
+      updateServerIp();
+    });
+  </script>
+  </body>
+</html>
