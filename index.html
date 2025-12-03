@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: monospace;
+      font-family: "Georgia", "Times New Roman", serif;
       background: #fdfdfd;
       overflow-x: hidden;
     }
@@ -23,6 +23,7 @@
       overflow: hidden;
       background: #fdfdfd;
       position: relative;
+      border-bottom: 1px solid #000;
     }
 
     .hero-img {
@@ -86,15 +87,145 @@
       flex-wrap: wrap;
     }
 
-    nav a {
-      text-decoration: none;
-      color: inherit;
-      white-space: nowrap;
-    }
-
     .title-name {
       text-decoration: underline;
       font-weight: 700;
+    }
+
+    .page {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+      padding: 0;
+      border: 1px solid #000;
+      border-top: none;
+      box-sizing: border-box;
+      overflow: hidden;
+      min-height: 100%;
+    }
+
+    .sidebar {
+      width: clamp(100px, 26vw, 135px);
+      border: 1px solid #000;
+      padding: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 0.65rem;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      align-self: stretch;
+    }
+
+    .sidebar-section h2 {
+      margin: 0 0 0.25rem 0;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+
+    .sidebar-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      font-size: 0.72rem;
+    }
+
+    .sidebar-section li {
+      line-height: 1.2;
+    }
+
+    .inline-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.12rem 0.12rem;
+      font-size: 0.72rem;
+    }
+
+    .inline-cloud span {
+      white-space: nowrap;
+    }
+
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: min(72ch, 100%);
+      padding: clamp(1rem, 2vw, 2rem);
+      box-sizing: border-box;
+    }
+
+    .post-card {
+      border-bottom: 1px solid #000;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .post-card h3 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.95rem;
+      text-decoration: underline;
+    }
+
+    .post-meta {
+      margin: 0 0 0.4rem 0;
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    .post-card img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      margin: 0.5rem 0;
+      border: 1px solid #000;
+    }
+
+    .post-card p {
+      margin: 0.25rem 0;
+      line-height: 1.4;
+      font-size: 0.93rem;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      .sidebar {
+        width: clamp(100px, 38vw, 130px);
+        padding: clamp(0.3rem, 2vw, 0.65rem);
+      }
+
+      .main-content {
+        max-width: min(72ch, 100%);
+        padding: clamp(0.75rem, 2vw, 1.5rem);
+      }
+    }
+
+    .sidebar-toggle {
+      background: transparent;
+      border: 1px solid #000;
+      padding: 0.1rem 0.3rem;
+      font-family: inherit;
+      font-size: 0.75rem;
+      line-height: 1;
+      cursor: pointer;
+      margin: 0 0 0.35rem 0;
+      align-self: flex-start;
+    }
+
+    .page.sidebar-hidden .sidebar {
+      display: none;
+    }
+
+    .page.sidebar-hidden .main-content {
+      max-width: min(80ch, 100%);
     }
 
   </style>
@@ -105,10 +236,11 @@
       <div class="hero-overlay">
         <div class="overlay-box overlay-left">
           <nav aria-label="Primary">
-            <a href="#me">me</a> //
-            <a href="#code">code</a> //
-            <a href="#contact">contact</a> //
-            <a href="#links">links</a>
+            <a href="index.html">home</a> //
+            <a href="projects.html">projects</a> //
+            <a href="about.html">about</a> //
+            <a href="contact.html">contact</a> //
+            <a href="contact.html">code</a>
           </nav>
         </div>
         <div class="overlay-box overlay-right">
@@ -119,6 +251,75 @@
         </div>
       </div>
     </header>
+
+    <div class="page" id="page">
+      <aside class="sidebar" aria-label="Sidebar">
+        <button class="sidebar-toggle" id="toggle-sidebar" type="button" aria-label="Toggle sidebar">▼</button>
+        <section class="sidebar-section" id="posts">
+          <h2>Recommended</h2>
+          <ul>
+            <li>Glitch Studies</li>
+            <li>Minimal Web</li>
+            <li>Small Tools</li>
+            <li>Quiet UX</li>
+            <li>Walkable Code</li>
+          </ul>
+        </section>
+
+        <section class="sidebar-section" id="archives">
+          <h2>Archives</h2>
+          <div class="inline-cloud">
+            <span>2024-12</span><span>2024-11</span><span>2024-10</span><span>2024-09</span><span>2024-08</span><span>2024-07</span>
+            <span>2024-06</span><span>2024-05</span><span>2024-04</span><span>2024-03</span><span>2024-02</span><span>2024-01</span>
+          </div>
+        </section>
+
+        <section class="sidebar-section" id="tags">
+          <h2>Tags</h2>
+          <div class="inline-cloud">
+            <span>#glitch</span><span>#maps</span><span>#ux</span><span>#hardware</span>
+            <span>#writing</span><span>#deploys</span><span>#hiking</span><span>#radio</span>
+            <span>#photos</span><span>#notes</span>
+          </div>
+        </section>
+
+      </aside>
+
+      <main class="main-content" id="blog">
+        <article class="post-card">
+          <h3>12-17-24 — Glitch Field Notes</h3>
+          <p class="post-meta">Missoula, MT — experiments with stretched frames.</p>
+          <img src="parthenon-glitch.webp" alt="Parthenon glitch sample">
+          <p>Collected a handful of smears from architectural shots. The longer the smear, the more it feels like memory instead of capture.</p>
+          <p>Tools: PIL, nearest-neighbor stretch, a bit of channel offset and stripes.</p>
+        </article>
+
+        <article class="post-card">
+          <h3>12-12-24 — Narrow Pages</h3>
+          <p class="post-meta">On choosing a min viewport width for calmer reading.</p>
+          <p>Keeping the column narrow keeps me honest—nothing to hide behind, just text and a few reference images when needed.</p>
+        </article>
+
+        <article class="post-card">
+          <h3>12-05-24 — Trailhead Planning</h3>
+          <p class="post-meta">Sketching routes for winter hikes.</p>
+          <img src="parthenon-glitch.webp" alt="Parthenon glitch sample">
+          <p>Map layers, weather overlays, and a few hand-drawn markers to keep track of daylight.</p>
+        </article>
+
+        <article class="post-card">
+          <h3>11-28-24 — Quiet Deploys</h3>
+          <p class="post-meta">Notes on slow, deliberate releases.</p>
+          <p>Deploy early, freeze often, and keep the blast radius small. Every release should feel like a whisper, not a shout.</p>
+        </article>
+
+        <article class="post-card">
+          <h3>11-20-24 — Walkable Code</h3>
+          <p class="post-meta">Code you can stroll through without losing your place.</p>
+          <p>Short files, explicit seams, and a little whitespace go a long way. Screenshots of the Parthenon remind me to keep the lines straight.</p>
+        </article>
+      </main>
+    </div>
 
   <script>
     const STORAGE_KEY = "lorn_request_counter";
@@ -172,6 +373,15 @@
       setInterval(updateClock, 1000);
       updateRequests();
       updateServerIp();
+
+      const pageEl = document.getElementById("page");
+      const toggleBtn = document.getElementById("toggle-sidebar");
+      if (pageEl && toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          const hidden = pageEl.classList.toggle("sidebar-hidden");
+          toggleBtn.textContent = hidden ? "▲" : "▼";
+        });
+      }
     });
   </script>
   </body>
