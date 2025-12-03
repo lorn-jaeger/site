@@ -10,29 +10,39 @@
       margin: 0;
       padding: 0;
       font-family: "Georgia", "Times New Roman", serif;
-      background: #fdfdfd;
+      background: #e6e6e6;
       overflow-x: hidden;
+    }
+
+    .site {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto 0 0;
+      background: #fdfdfd;
     }
 
     header {
       margin: 0;
       padding: 0;
-      width: 100vw;
-      max-width: 100vw;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       color: #000;
       overflow: hidden;
       background: #fdfdfd;
       position: relative;
-      border-bottom: 1px solid #000;
+      border: 4px double #000;
     }
 
     .hero-img {
       display: block;
-      width: 100vw;
-      max-width: 100vw;
+      width: 100%;
+      max-width: 100%;
       height: auto;
       object-fit: contain;
       object-position: center;
+      border: 1px solid #000;
+      box-sizing: border-box;
     }
 
     .hero-overlay {
@@ -44,6 +54,7 @@
       gap: clamp(1rem, 4vw, 3rem);
       padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
       pointer-events: none;
+      box-sizing: border-box;
     }
 
     .hero-overlay::before {
@@ -70,11 +81,13 @@
     .overlay-left {
       text-align: left;
       align-items: flex-start;
+      white-space: nowrap;
     }
 
     .overlay-right {
       text-align: right;
       align-items: flex-end;
+      white-space: nowrap;
     }
 
     nav {
@@ -83,8 +96,9 @@
       border: none;
       text-align: left;
       display: flex;
-      gap: 0.35rem;
-      flex-wrap: wrap;
+      gap: 0.25rem;
+      flex-wrap: nowrap;
+      white-space: nowrap;
     }
 
     .title-name {
@@ -99,7 +113,7 @@
       gap: 0.5rem;
       padding: 0;
       border: 1px solid #000;
-      border-top: none;
+      border-top: 0;
       box-sizing: border-box;
       overflow: hidden;
       min-height: 100%;
@@ -107,7 +121,8 @@
 
     .sidebar {
       width: clamp(100px, 26vw, 135px);
-      border: 1px solid #000;
+      border: 0;
+      border-right: 1px solid #000;
       padding: 0.45rem;
       display: flex;
       flex-direction: column;
@@ -225,34 +240,36 @@
     }
 
     .page.sidebar-hidden .main-content {
-      max-width: min(80ch, 100%);
+      max-width: min(90ch, 100%);
+      flex: 1 1 100%;
     }
 
   </style>
 </head>
   <body>
-    <header>
-      <img src="parthenon-glitch.webp" alt="Glitched Parthenon" class="hero-img">
-      <div class="hero-overlay">
-        <div class="overlay-box overlay-left">
-          <nav aria-label="Primary">
-            <a href="index.html">home</a> //
-            <a href="projects.html">projects</a> //
-            <a href="about.html">about</a> //
-            <a href="contact.html">contact</a> //
-            <a href="contact.html">code</a>
-          </nav>
+    <div class="site">
+      <header>
+        <img src="parthenon-glitch.webp" alt="Glitched Parthenon" class="hero-img">
+        <div class="hero-overlay">
+          <div class="overlay-box overlay-left">
+            <nav aria-label="Primary">
+              <a href="index.html">home</a> //
+              <a href="projects.html">projects</a> //
+              <a href="about.html">about</a> //
+              <a href="contact.html">contact</a> //
+              <a href="contact.html">code</a>
+            </nav>
+          </div>
+          <div class="overlay-box overlay-right">
+            <span class="title-name">Lorn's Webpage</span>
+            <span id="clock">--:--:-- -- in Missoula MT</span>
+            <span id="requests">0 requests today</span>
+            <span id="server-ip">Server: --</span>
+          </div>
         </div>
-        <div class="overlay-box overlay-right">
-          <span class="title-name">Lorn's Webpage</span>
-          <span id="clock">--:--:-- -- in Missoula MT</span>
-          <span id="requests">0 requests today</span>
-          <span id="server-ip">Server: --</span>
-        </div>
-      </div>
-    </header>
+      </header>
 
-    <div class="page" id="page">
+      <div class="page" id="page">
       <aside class="sidebar" aria-label="Sidebar">
         <button class="sidebar-toggle" id="toggle-sidebar" type="button" aria-label="Toggle sidebar">▼</button>
         <section class="sidebar-section" id="posts">
