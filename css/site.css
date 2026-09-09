@@ -1,0 +1,16 @@
+body {
+  margin: 8px;
+  background: white;
+  color: black;
+}
+main { max-width: 800px; }
+img { max-width: 100%; height: auto; }
+.portrait { display: block; width: 220px; }
+.post-list { padding-left: 24px; }
+.post-list li { margin: 6px 0; }
+.post-list time { margin-right: 8px; white-space: nowrap; }
+article { line-height: 1.5; overflow-wrap: break-word; }
+article pre { overflow-x: auto; }
+.cat { margin-top: 32px; }
+.skip-link { position: absolute; left: -10000px; }
+.skip-link:focus { left: 8px; top: 8px; background: white; }
